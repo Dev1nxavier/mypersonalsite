@@ -18,23 +18,25 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function ScrollOnTrigger(props) {
-    const { children, window } = props;
+    const { children } = props;
 
     const trigger = useScrollTrigger({
         disableHysteresis: true,
         threshold: 0,
-        // target: window ? window() : undefined,
+        
     });
 
     return React.cloneElement(children, {
         style: {
             backgroundColor: trigger ? '#444444' : 'transparent',
+
         }
     });
 }
 
 export default function MyAppBar(props) {
 
+    const {homePage, ...others} = props;
 
 
     const pages = [
@@ -47,7 +49,7 @@ export default function MyAppBar(props) {
 
     return (
         <ScrollOnTrigger {...props}>
-            <AppBar position="sticky" sx={{ backgroundColor: 'transparent', opacity: '0.9', color: '#fff' }}>
+            <AppBar position="sticky" sx={{opacity: '0.9', color: '#fff' }}>
                 <Toolbar component="nav"
                     variant="dense" sx={{ py: 1, display: 'flex', justifyContent: 'space-between' }}>
                     <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
