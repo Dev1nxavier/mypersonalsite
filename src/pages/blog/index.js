@@ -1,11 +1,7 @@
 import * as React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql, Link, } from "gatsby";
 import Layout from "../../components/Layout";
 import {
-  ListItemButton,
-  ListItemText,
-  ListItem,
-  List,
   Card,
   CardContent,
   Typography,
@@ -17,12 +13,13 @@ import {
 } from "@mui/material";
 import image from "../../images/aboutMe_image.png";
 
+
 const BlogPage = ({ data }) => {
   return (
     <Layout>
       <Grid container direction={"row"} spacing={3}>
         {data.allMdx.nodes.map((post) => (
-          <Grid item>
+          <Grid item key={post.id}>
             <Card sx={{ minWidth: 345 }}>
               <CardHeader title={post.slug} subheader={post.frontmatter.date} />
               <CardMedia
@@ -63,7 +60,7 @@ const BlogPage = ({ data }) => {
   );
 };
 
-export const query = graphql`
+export const data = graphql`
   query {
     allMdx(sort: { order: DESC, fields: frontmatter___date }) {
       nodes {

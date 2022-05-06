@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 module.exports = {
   siteMetadata: {
     title: `My Gatsby Portfolio Site`,
@@ -12,6 +14,7 @@ module.exports = {
     __key: "pages"
   },
   "gatsby-plugin-mdx",
-  "gatsby-transformer-sharp"
+  "gatsby-transformer-sharp",
+  "gatsby-plugin-gatsby-cloud"
 ]
 };

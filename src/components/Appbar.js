@@ -8,6 +8,7 @@ import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { purple } from '@mui/material/colors'
 import { useScrollTrigger } from '@mui/material';
+import { navigate } from "gatsby";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(purple[500]),
@@ -87,9 +88,10 @@ export default function MyAppBar(props) {
                         <ColorButton variant='contained' onClick={(e) => {
                             e.preventDefault()
                             console.log("you pressed the button")
+                            window.location.assign("/api/login")
                         }
                         }>
-                            Contact
+                            Login
                         </ColorButton>
                     </Box>
 
