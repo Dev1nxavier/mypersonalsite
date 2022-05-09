@@ -18,7 +18,9 @@ export default function Layout({ pageTitle, children }) {
     return (
         <React.Fragment>
             <title>{pageTitle} | {data.site.siteMetadata.title}</title>
+            
             {children}
+            
         </React.Fragment>
     )
 }

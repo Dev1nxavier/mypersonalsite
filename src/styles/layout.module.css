@@ -1,3 +1,6 @@
+
+
+
 .AboutMe{
     background-image: url('../images/aboutMe_image.png');
     background-repeat: no-repeat;
@@ -10,4 +13,9 @@
     color: gray;
     font-weight: 700;
     margin: 3rem 0;
+}
+
+.bodyText{
+    color: gray;
+    font-family: 'Roboto Slab', serif;
 }

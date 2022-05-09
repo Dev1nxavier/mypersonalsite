@@ -22,6 +22,7 @@ const PrivateRoute = ({ component: Component, location, ...rest }) => {
     navigate("/")
     return null
   }
+  //if loggedin, pass component from props
   return <Component {...rest} />
 }
 export default PrivateRoute

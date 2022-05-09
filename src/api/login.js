@@ -18,7 +18,7 @@ google.options({auth: oauth2Client});
 const scopes = ["profile"];
 
 const login = async (req, res)=>{
-    //generate callback URL with options
+
     try {
         const authorizeUrl = oauth2Client.generateAuthUrl({
             access_type: "offline",

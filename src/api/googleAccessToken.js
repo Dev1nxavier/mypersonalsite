@@ -24,6 +24,15 @@ const googleAccessToken = async (req, res)=>{
     //use to get the auth token
     const token = await oauth2Client.getToken(code);
     console.log("token:", token);
+    oauth2Client.setCredentials(token);
+
+    //get refresh token and store
+    oauth2Client.on('tokens', (tokens)=>{
+        if(tokens.refresh_token){
+            window.localStorage.setItem("Google:refresh_token", tokens.refresh_token);
+        }
+    })
+
     //redirect to auth page and set token in the URL
     return res.redirect(`${process.env.APP_REDIRECT_URI}?token=${JSON.stringify(token?.tokens)}`); 
     } catch (error) {

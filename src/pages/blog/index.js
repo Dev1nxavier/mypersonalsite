@@ -1,5 +1,5 @@
-import * as React from "react";
-import { graphql, Link, } from "gatsby";
+import React, {useEffect} from "react";
+import { graphql, Link } from "gatsby";
 import Layout from "../../components/Layout";
 import {
   Card,
@@ -10,51 +10,48 @@ import {
   CardActions,
   Button,
   Grid,
+  CardActionArea,
 } from "@mui/material";
-import image from "../../images/aboutMe_image.png";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
 
+const BlogPage = ({ data: allPosts }) => {
 
-const BlogPage = ({ data }) => {
+  useEffect(()=>{
+    deckDeckGoHighlightElement();
+  },[])
+
+  
+  console.log(data);
   return (
     <Layout>
-      <Grid container direction={"row"} spacing={3}>
-        {data.allMdx.nodes.map((post) => (
-          <Grid item key={post.id}>
-            <Card sx={{ minWidth: 345 }}>
-              <CardHeader title={post.slug} subheader={post.frontmatter.date} />
-              <CardMedia
-                component="img"
-                height="140"
-                image={image}
-                alt="green iguana"
-              />
-              <Link to={`/blog/${post.slug}`}>{post.slug}</Link>
-            </Card>
-          </Grid>
-        ))}
-        <Grid item>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            component="img"
-            height="140"
-            image="../../images/logo_SG.png"
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-        </Grid>
+      <Button href="/" variant="outlined" sx={{m:5}}>
+        Back
+      </Button>
+      <Grid container direction={"row"} spacing={3} >
+        {allPosts.allMdx.nodes.map((post) => {
+          const image = getImage(post.frontmatter.hero_image);
+          return (
+            <Grid item key={post.id}>
+              <Card sx={{ width: 345, height: 400 }} elevation={10}>
+                <CardMedia>
+                  <GatsbyImage image={image} alt={post.frontmatter.alt} />
+                </CardMedia>
+                <CardHeader
+                  title={post.frontmatter.title}
+                  subheader={post.frontmatter.date}
+                />
+
+                <CardActionArea>
+                  <Link to={`/blog/${post.slug}`}>
+                    <Typography variant = 'button'>{post.frontmatter.title}</Typography>
+                  </Link>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          );
+        })}
+        
       </Grid>
     </Layout>
   );
@@ -62,14 +59,24 @@ const BlogPage = ({ data }) => {
 
 export const data = graphql`
   query {
-    allMdx(sort: { order: DESC, fields: frontmatter___date }) {
+    allMdx(
+      filter: { fileAbsolutePath: { regex: "/(blog)/" } }
+      sort: { order: DESC, fields: frontmatter___date }
+    ) {
       nodes {
         frontmatter {
-          date(formatString: "MMMM D YY")
+          header
           title
+          alt
+          date(formatString: "MMMM DD YYYY")
+          hero_image {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
         }
-        id
         slug
+        id
       }
     }
   }

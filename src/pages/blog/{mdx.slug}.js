@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import Layout from "../../components/Layout";
 import { graphql } from "gatsby";
-import { Container, Paper, Typography } from "@mui/material";
+import { Container, Typography, Box, Grid } from "@mui/material";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { useLocation } from '@reach/router'
+import queryString from 'query-string';
 
 const BlogPost = ({ data }) => {
+
   //retrieve hero image
   const image = getImage(data.mdx.frontmatter.hero_image);
 
@@ -13,21 +16,22 @@ const BlogPost = ({ data }) => {
 
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
-      
-
-      <Paper>
-      <Typography variant="h1">{data.mdx.frontmatter.title}</Typography>
+      <Box sx={{ width: "100vw", height: "auto" }}>
+        <Grid container direction={"column"}>
+          <Grid item>
+            <GatsbyImage image={image} alt={data.mdx.frontmatter.alt} />
+          </Grid>
+        </Grid>
+      </Box>
       <Container>
-        <GatsbyImage image={image} alt={data.mdx.frontmatter.alt} />
-        <a href={data.mdx.frontmatter.hero_image_credit_text}>
-          <p>Photocredit {data.mdx.frontmatter.hero_image_credit_text}</p>
-        </a>
-      </Container>
-        
+      <Typography variant="h1">{data.mdx.frontmatter.title}</Typography>
+            <Typography variant="h5">
+              {data.mdx.frontmatter.subheader}
+            </Typography>
         <Typography variant="body1">
           <MDXRenderer>{data.mdx.body}</MDXRenderer>
         </Typography>
-      </Paper>
+      </Container>
     </Layout>
   );
 };
@@ -38,6 +42,7 @@ export const data = graphql`
       body
       frontmatter {
         title
+        subheader
         date(formatString: "MMMM DD, YYYY")
         alt
         hero_image_credit_text
