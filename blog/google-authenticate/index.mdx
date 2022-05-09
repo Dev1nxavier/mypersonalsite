@@ -1,0 +1,216 @@
+---
+title: "Google OAuth2 in Gatsby"
+subheader: "Authenticate users without a server using Gatsby's API-as-function ability"
+date: "2022-05-07"
+hero_image: './key_in_hand_small.jpeg'
+hero_image_credit_text: 'https://unsplash.com/@schluesseldienstvergleich_eu'
+alt: 'key in a hand'
+---
+import image from './OAuth2_Google_diagram.png';
+
+## Gatsby Functions through Gatsby Cloud work similarly to a Node Express server - without the server!
+
+*this article discusses Gatsby Functions to authenticate with Google OAuth2. For a general introduction to Gatsby API Functions [visit the Gatsby reference site here](https://www.gatsbyjs.com/docs/reference/functions/getting-started/)*
+
+# Overview #   
+We will need to define a number of redirects in our OAuth2 flow. From the diagram, we will hit the login api and send Google our client ID in exchange for an authorization code. Next, we will exchange this code for an authorization token and redirect our user to another page in our app on success.   
+  
+<div width="100vw" display='flex' flex-direction='row' justify-content='center' align-items='center'>
+<img src={image} width='800px' height='auto'/>
+</div>
+
+1. Hit the api/login route   
+    We need to send our user to the src/api/login route to start the login function.   
+    For this demo, we will create a button with an onClick listener  
+```javascript
+    <Button>
+        onClick={(event)=>{
+            event.preventDefault();
+            window.location.assign("/api/login")
+        }}
+    </Button>
+```
+
+2. Create a Google Oath 2.0 Client ID
+
+   [In Google Cloud](https://console.cloud.google.com/) find the Credentials page and click on the +CREATE CREDENTIALS button (blue button at the top of the page)   
+
+   Select Create OAuth client ID from the select menu and choose application type: Web   
+   You may need to complete the OAuth consent screen as well. Just put in your email as both the Authorized User and Primary Support.   
+
+3. Saving Google Credentials   
+   After clicking through the options you will receive a new ClientID and a Secret Key. Record these in your Gastsby webpage in your .env file 
+
+```md
+   .env
+   GOOGLE_CLIENT_ID = ["REPLACE WITH YOUR KEY"]
+   GOOGLE CLIENT_SECRET = ["REPLACE WITH YOUR SECRET"]
+```
+
+3. setting redirects   
+   Back on the Google developer dashboard, click on the newly created OAuth2 you just created.   
+   Under *** Authorized JavaScript origins *** enter a URI
+
+```
+    http://localhost:8000 //default port for Gatsby development server
+```   
+   Under *** Authorized redirect URIs *** enter a URI   
+```
+    http://localhost:8000/googleAccessToken //we will create this function next
+```   
+4. Setting additional redirects   
+   We will need one more redirect in our .env file to send our loggedin user to our logged in route   
+```   
+    .env   
+    APP_REDIRECT_URI = "http://localhost:8000/auth-redirect" //This is a page in our app that we can use to send the user around to any other route. 
+```
+# Creating a Google authorization API
+
+#### Now that we have setup our Google OAuth credentials we can create the functions
+
+1. Create a login module
+
+   create a new file under src > api > login.js
+
+```
+    touch src/api/login.js
+```   
+   While we're at it, lets install the google APIs library   
+```
+    npm install googleapis
+```  
+
+   In the login.js file, access your environmental variables (*** NEVER SAVE THEM IN YOUR COMPONENTS DIRECTLY! ***) and initialize the handler for Google OAuth2 APIs
+
+```javascript   
+    const {google} = require("gogoleapis")
+
+    const clientId = process.env.GOOGLE_CLIENT_ID;   
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;   
+
+    const oauth2Client = new google.auth.OAuth2(
+        clientId,
+        clientSecret,
+        process.env.GOOGLE_REDIRECT_URI
+    )
+
+    google.options({auth: oauth2Client});
+```   
+   We are almost done with our login module. Now that we have set our google.options to our oauth2Client we need to call our Gatsby api function to generate our authorization publicURL   
+```javascript
+    //looks very similar to other APIs doesnt it?
+    const login = async (req, res)=>{
+
+    try {
+        const authorizeUrl = oauth2Client.generateAuthUrl({
+            access_type: "offline", //Must set this to offline to receive a refresh token!
+            scope: scopes.join(" "), //we could have passed our single scope as a string but if we had multiple, this is how you would pass them all in. 
+        })
+        console.log(res.redirect)
+        //redirect to next Gatsby Function
+        return res.redirect(authorizeUrl) //this is going to send us to src/api/googleAccessToken
+    } catch (error) {
+        console.error("Error logging in to Google: ", error);
+    }
+    
+}
+```   
+# Google Access Token #
+### Phew! Now that we have our authorization code returned to us we can write our second API: googleAccessToken   
+
+1. Write the function to exchange our authorization code for an access token   
+   
+      create a new file under src > api > googleAccessToken.js
+
+```
+    touch src/api/googleAccessToken.js
+```  
+
+   Just like before, we need to initialize the google OAuth2 client to handle the authorization flow. This time we will be exchanging our authorization returned in the last response for an authorization token 
+
+```javascript
+    onst { google } = require("googleapis");
+
+const client_id=process.env.GOOGLE_CLIENT_ID;
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+
+console.log('In googleAccessToken');
+//initialize googleOAuth
+const oauth2Client = new google.auth.OAuth2(
+    client_id,
+    clientSecret,
+    //redirect to localhost until publish
+    process.env.GOOGLE_REDIRECT_URI
+)
+
+//set auth type as oauth2client
+google.options({auth: oauth2Client});
+
+const googleAccessToken = async (req, res)=>{
+
+    try {
+        //get the code appended from Google generateAuthUrl
+    const code = req.query.code;
+    console.log('code:', code);
+    //use to get the auth token
+    const token = await oauth2Client.getToken(code);
+    console.log("token:", token);
+    oauth2Client.setCredentials(token);
+
+    //get refresh token and store
+    oauth2Client.on('tokens', (tokens)=>{
+        if(tokens.refresh_token){
+            window.localStorage.setItem("Google:refresh_token", tokens.refresh_token);
+        }
+    })
+```   
+   Finally, redirect the user to auth-redirect page.   
+   *** notice that we are packaging the token into the URL of the redirect so we can grab it from the URL on the next page. More on this in a bit ***
+```javascript
+    return res.redirect(`${process.env.APP_REDIRECT_URI}?token=${JSON.stringify(token?.tokens)}`);   
+```   
+
+# Redirecting on client-side #   
+### We did it! Now we just need to send the user to those parts of our website that were behind our wall ###   
+
+1. Save the token in local storage   
+
+   Gatsby uses @reach/router for client-side routing. This means that the browser URL location is passed in as a prop to every page. We can use this to grab the token from the URL (remember how we added this in our redirect?) and set into local storage   
+
+   Start by loading the query-string package for parsing our URL   
+```javascript
+    nmp install query-string
+```   
+   Create an auth-redirect.js page   
+```javascript
+    touch src/pages/auth-redirect.js
+```
+   Parse the token from the location object passed into our page props by default
+```javascript
+    import React, { useEffect } from "react";
+import qs from "query-string";
+
+const AuthRedirect = ({ location }) => {
+  //get token from url query string
+  const query = qs.parse(location?.search);
+
+  useEffect(() => {
+    //check that there is a location object
+    if (typeof window !== `undefined`) {
+      window.localStorage.setItem(`google:tokens`, query.token);
+    }
+```   
+   Finally, send the user to our secure page   
+```javascript
+    //redirect to app homepage
+    setTimeout(() => {
+      window.location.assign("/app/");
+    }, 1000);
+  });
+  
+  //This message will display for 1 second until user is redirected to /app
+  return <p>Logging in...</p>;
+```   
+
+# We did it! #
+### Our user should now be logged in via Google. Read on to learn more about [how to handle client-side private routes](https://link).

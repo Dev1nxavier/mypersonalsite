@@ -1,0 +1,168 @@
+---
+title: "Build a Gatsby webpage from MDX"
+subheader:  "Gatsby's ability to quickly generate pages from MDX is ideal for content-driven sites like blogs and tutorials."
+date: "2022-05-07"
+hero_image: "./brain_diagram_hero_forma.jpeg"
+alt: "Image of 2D brain with neon lights"
+---
+
+import { Link } from "gatsby";
+import image from './brain_diagram_hero_forma.jpeg';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from "@mui/material";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+
+
+ 
+
+
+# Configuring Gatsby to use MDX
+
+1. First, we need to download and configure Gatsby to read MDX
+
+   Start by installing **gatsby-plugin-mdx**
+
+```
+    npm install gatsby-plugin-mdx
+```
+
+2. Update **gatsby-config.js**
+
+   Since we are creating a .mdx page under src/pages we don't need to add any plugins to acces this in the site Node. More on this later.
+
+```javascript{8}
+    module.exports = {
+        siteMetadata: {
+            title: `My Gatsby Site`,
+            siteUrl: `https://www.yourdomain.tld`,
+            },
+            plugins: [
+                "gatsby-plugin-netlify-cms"
+                "gatsby-plugin-mdx",
+                "gatsby-plugin-image",
+            ],
+    };
+```
+
+3. Restart your development server
+
+```javascript{1-2}
+    ^C
+    npm start develop //or gatsby develop if you installed Gatsby CLI
+```
+
+# Creating MDX URLs
+
+#### Now that your Gatsby site is using MDX, its time to create our page.mdx
+
+1. Create a new page.mdx file
+
+   Under src > pages > create a new my-markup-page.mdx
+
+```
+    touch src/pages/my-markup-page.mdx
+```
+
+2. Create MDX page medidata
+
+   In the newly created .mdx file, at the very top of the page record page data surrounded by 3 dashes:
+
+```
+    ---
+    title: "page title"
+    date: "YYY-MM-D"
+    hero_image:"../images/exampleImage.jpeg"
+    ---
+```
+
+### _A note on frontmatter_:
+
+frontmatter lets us access page medidata such as title, hero images, dates and more which can be accessed via GraphQL query. To query data, MDX files must be added to the site Node system using a plugin such as gatsby-source-filesystem. Visit [Gatsby Source Filesystem](/blog/howtoquery) for instructions.
+
+```javascript{4-15}
+    query MyQuery {
+    allMdx {
+        nodes {
+        frontmatter {
+            header
+            title
+            alt
+            date(formatString: "MMMM DD YYYY")
+            hero_image {
+            childImageSharp {
+                gatsbyImageData
+            }
+            publicURL
+            }
+        }
+        slug
+        id
+        }
+    }
+}
+```
+
+# Styling your page
+
+Now that we have our page created we can start writing our content.  
+MDX is a _writing_ language (as opposed to html which is a _publishing_ language). That means its most suited for basic formatting of plain-text. Once we have our basic content written, there are a few things we can do to improve the look of the page.
+
+1.  Add the page title to the body from the page medidata  
+     We can grab the page title from the medidata block by accessing the page props   
+            javascript{1}
+            <h1>{props.pageContext.frontmatter.title}</h1>
+
+    Did you notice the html &lt;h1> tags? We can use regular html directly in our MDX file.  
+    You can read more on MDX formatting [here](https://daringfireball.net/projects/markdown/syntax).
+
+2.  Under the page medata write content that will be the body of your page.  
+    _Not inspired to write that novel yet? Trying using [Lorem Ipsum](https://www.lipsum.com/) for filler._
+
+3.  Import Components into your MDX file  
+    Just like accessing html elements directly, we can use Components directly in our MDX file. At the top of the page **underneath the medidata section** import your components
+
+         ---
+         title: "page title"
+         date: "YYY-MM-D"
+         hero_image:"../images/exampleImage.jpeg"
+         ---
+         import { Card, CardActions, CartContent, CardMedia, Button } from '@mui/material'
+
+    _Using mui's card component is just an example. You are free to use whatever library or custom component you want!_
+
+4.  Start populating your components  
+    Just like with the page title, you can access medidata directly without a GraphQL query. Below is an example using Material-UI's card component   
+            <Card sx={{width:345}}>
+                <CardMedia component='img' height="140" image={props.pageContext.frontmatter.hero_image}/>
+                <Typograpy variant="h5" component="div">
+                    "Building a Gatsby webpage from MDX"
+                </Typography>
+                <Typography variant="body2">
+                "MDX let's you focus on the blogging while keeping all your content consistent!"
+                </Typography>
+            </Card>   
+        
+# And there we go! Our final render. Now you can create one template page for all your blogs and publish easily! Happy blogging! #    
+            
+
+<Card sx={{ width: 345, justifySelf:'center' }} elevation={10}>
+  <CardContent>
+    <CardMedia
+        component="img"
+        height="140"
+        image={image}
+        alt="2D brain in neon lights"
+      />
+    <Typography gutterBottom variant="h5" component="div">Building a Gatsby webpage from MDX</Typography>
+    <Typography variant="body2">
+      MDX let's us focus on the blogging while keeping all your content
+      consistent!
+    </Typography>
+  </CardContent>
+</Card>
