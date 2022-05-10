@@ -18,7 +18,7 @@ const BlogPost = ({ data }) => {
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <Box sx={{ width: "100vw", height: "auto" }}>
         <Grid container direction={"column"}>
-          <Grid item>
+          <Grid item container sx={{justifyContent:'center'}}>
             <GatsbyImage image={image} alt={data.mdx.frontmatter.alt} />
           </Grid>
         </Grid>
