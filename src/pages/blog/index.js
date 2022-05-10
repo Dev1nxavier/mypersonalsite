@@ -12,6 +12,7 @@ import {
   Grid,
   CardActionArea,
 } from "@mui/material";
+import { BackButton } from "../../components/BackButton";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
 
@@ -25,9 +26,7 @@ const BlogPage = ({ data: allPosts }) => {
   console.log(data);
   return (
     <Layout>
-      <Button href="/" variant="outlined" sx={{m:5}}>
-        Back
-      </Button>
+      <BackButton component={Link} to="/"/>
       <Grid container direction={"row"} spacing={3} >
         {allPosts.allMdx.nodes.map((post) => {
           const image = getImage(post.frontmatter.hero_image);
