@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Layout from "../../components/Layout";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import { Container, Typography, Box, Grid } from "@mui/material";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { useLocation } from '@reach/router'
-import queryString from 'query-string';
+import { BackButton } from "../../components/BackButton";
+
 
 const BlogPost = ({ data }) => {
 
@@ -16,7 +16,9 @@ const BlogPost = ({ data }) => {
 
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
+      
       <Box sx={{ width: "100vw", height: "auto" }}>
+      <BackButton component={Link} to="/blog"/>
         <Grid container direction={"column"}>
           <Grid item container sx={{justifyContent:'center'}}>
             <GatsbyImage image={image} alt={data.mdx.frontmatter.alt} />

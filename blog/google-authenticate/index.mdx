@@ -56,9 +56,9 @@ We will need to define a number of redirects in our OAuth2 flow. From the diagra
 ```   
    Under *** Authorized redirect URIs *** enter a URI   
 ```
-    http://localhost:8000/googleAccessToken //we will create this function next
+    http://localhost:8000/api/googleAccessToken //we will create this function next
 ```   
-4. Setting additional redirects   
+4. Set additional redirects   
    We will need one more redirect in our .env file to send our loggedin user to our logged in route   
 ```   
     .env   
@@ -84,6 +84,8 @@ We will need to define a number of redirects in our OAuth2 flow. From the diagra
 
 ```javascript   
     const {google} = require("gogoleapis")
+
+    const scopes = ["profile"] //set api scope to pull back user profile information
 
     const clientId = process.env.GOOGLE_CLIENT_ID;   
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;   
@@ -129,7 +131,7 @@ We will need to define a number of redirects in our OAuth2 flow. From the diagra
    Just like before, we need to initialize the google OAuth2 client to handle the authorization flow. This time we will be exchanging our authorization returned in the last response for an authorization token 
 
 ```javascript
-    onst { google } = require("googleapis");
+const { google } = require("googleapis");
 
 const client_id=process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -187,7 +189,7 @@ const googleAccessToken = async (req, res)=>{
 ```
    Parse the token from the location object passed into our page props by default
 ```javascript
-    import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import qs from "query-string";
 
 const AuthRedirect = ({ location }) => {

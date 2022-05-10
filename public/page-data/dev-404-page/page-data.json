@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---cache-dev-404-page-js",
     "path": "/dev-404-page/",
-    "result": {"data":{"allSiteFunction":{"nodes":[{"functionRoute":"googleAccessToken"},{"functionRoute":"login"},{"functionRoute":"logout"}]},"allSitePage":{"nodes":[{"path":"/404/"},{"path":"/404.html"},{"path":"/about/"},{"path":"/app/"},{"path":"/auth-redirect/"},{"path":"/"},{"path":"/login/"},{"path":"/logout/"},{"path":"/app/resume/"},{"path":"/blog/"},{"path":"/blog/google-authenticate/"},{"path":"/blog/mdx-webpage/"},{"path":"/blog/gatsby-api/"},{"path":"/blog/howtoquery/"},{"path":"/blog/education/"},{"path":"/blog/about-me/"},{"path":"/blog/mdx-page/"}]}},"pageContext":{}},
+    "result": {"data":{"allSiteFunction":{"nodes":[{"functionRoute":"googleAccessToken"},{"functionRoute":"login"},{"functionRoute":"logout"}]},"allSitePage":{"nodes":[{"path":"/404/"},{"path":"/404.html"},{"path":"/about/"},{"path":"/app/"},{"path":"/auth-redirect/"},{"path":"/"},{"path":"/login/"},{"path":"/logout/"},{"path":"/app/resume/"},{"path":"/blog/"},{"path":"/blog/howtoquery/"},{"path":"/blog/mdx-webpage/"},{"path":"/blog/gatsby-api/"},{"path":"/blog/about-me/"},{"path":"/blog/education/"},{"path":"/blog/google-authenticate/"},{"path":"/blog/mdx-page/"}]}},"pageContext":{}},
     "staticQueryHashes": []}
