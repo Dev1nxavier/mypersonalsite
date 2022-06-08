@@ -1,5 +1,0 @@
-{
-    "componentChunkName": "component---cache-dev-404-page-js",
-    "path": "/dev-404-page/",
-    "result": {"data":{"allSiteFunction":{"nodes":[{"functionRoute":"googleAccessToken"},{"functionRoute":"login"},{"functionRoute":"logout"}]},"allSitePage":{"nodes":[{"path":"/404/"},{"path":"/404.html"},{"path":"/about/"},{"path":"/app/"},{"path":"/auth-redirect/"},{"path":"/contact/"},{"path":"/"},{"path":"/login/"},{"path":"/logout/"},{"path":"/blog/"},{"path":"/app/store/"},{"path":"/blog/howtoquery/"},{"path":"/blog/mdx-webpage/"},{"path":"/blog/google-authenticate/"},{"path":"/blog/gatsby-api/"},{"path":"/blog/education/"},{"path":"/blog/about-me/"},{"path":"/blog/skills/"},{"path":"/blog/mdx-page/"}]}},"pageContext":{}},
-    "staticQueryHashes": []}

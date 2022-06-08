@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-pages-blog-mdx-page-mdx",
+    "path": "/blog/mdx-page/",
+    "result": {"pageContext":{"frontmatter":{"title":"building a Gatsby webpage directly from MDX","date":"2022-05-07","hero_image":"./brain_diagram.jpeg","alt":"Image of 2D brain with neon lights"}}},
+    "staticQueryHashes": []}

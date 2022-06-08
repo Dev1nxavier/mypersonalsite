@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmy_gatsby_portfolio_site=self.webpackChunkmy_gatsby_portfolio_site||[]).push([[1321],{2228:function(t,e,o){o.r(e);var n=o(7294),u=o(7413),s={}.GOOGLE_CLIENT_ID,i=function(t){console.log("LOGIN SUCCESS! Current user:",t.profileObj)};e.default=function(){return n.createElement("div",{id:"signoutButton"},n.createElement(u.GoogleLogout,{clientId:s,buttonText:"Logout",onSuccess:i}))}}}]);
+//# sourceMappingURL=component---src-pages-logout-js-bab9c66730528f4d3269.js.map

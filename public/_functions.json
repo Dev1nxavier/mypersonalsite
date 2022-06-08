@@ -1,0 +1,26 @@
+[
+    {
+        "functionRoute": "googleAccessToken",
+        "pluginName": "default-site-plugin",
+        "originalAbsoluteFilePath": "/Users/seangreene/Documents/mypersonalsite.nosync/src/api/googleAccessToken.js",
+        "originalRelativeFilePath": "googleAccessToken.js",
+        "relativeCompiledFilePath": "googleAccessToken.js",
+        "absoluteCompiledFilePath": "/Users/seangreene/Documents/mypersonalsite.nosync/.cache/functions/googleAccessToken.js"
+    },
+    {
+        "functionRoute": "login",
+        "pluginName": "default-site-plugin",
+        "originalAbsoluteFilePath": "/Users/seangreene/Documents/mypersonalsite.nosync/src/api/login.js",
+        "originalRelativeFilePath": "login.js",
+        "relativeCompiledFilePath": "login.js",
+        "absoluteCompiledFilePath": "/Users/seangreene/Documents/mypersonalsite.nosync/.cache/functions/login.js"
+    },
+    {
+        "functionRoute": "logout",
+        "pluginName": "default-site-plugin",
+        "originalAbsoluteFilePath": "/Users/seangreene/Documents/mypersonalsite.nosync/src/api/logout.js",
+        "originalRelativeFilePath": "logout.js",
+        "relativeCompiledFilePath": "logout.js",
+        "absoluteCompiledFilePath": "/Users/seangreene/Documents/mypersonalsite.nosync/.cache/functions/logout.js"
+    }
+]

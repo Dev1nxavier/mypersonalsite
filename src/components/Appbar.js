@@ -94,16 +94,6 @@ export default function MyAppBar(props) {
                 {page.name}
               </Link>
             ))} 
-            <ColorButton
-              variant="contained"
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("you pressed the button");
-                window.location.assign("/api/login");
-              }}
-            >
-              Login
-            </ColorButton>
           </Box>
           <Box sx={{}}></Box>
         </Toolbar>

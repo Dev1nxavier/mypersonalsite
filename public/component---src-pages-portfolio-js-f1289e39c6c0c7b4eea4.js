@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmy_gatsby_portfolio_site=self.webpackChunkmy_gatsby_portfolio_site||[]).push([[5025],{4037:function(e,t,n){n.r(t),n.d(t,{default:function(){return i}});var r=n(9308),o=n(7294),a=n(5133),u=n(2899);function i(){return o.createElement(u.Z,null,o.createElement(a.Z,{currentPage:"Portfolio"}),o.createElement(r.Z,{variant:"h1"},"Coming Soon"))}}}]);
+//# sourceMappingURL=component---src-pages-portfolio-js-f1289e39c6c0c7b4eea4.js.map
