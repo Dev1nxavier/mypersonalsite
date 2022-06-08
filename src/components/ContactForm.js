@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Typography, Grid, Box, Container } from '@mui/material';
+import { Button, TextField, Typography, Grid, Box, Alert, Collapse, IconButton, CloseIcon } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { StaticImage } from 'gatsby-plugin-image';
 import * as styles from '../styles/layout.module.css'
@@ -13,6 +13,8 @@ const ContactForm = (props) => {
 
     const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i
     const STRING_REGEX = /^([1-zA-Z0-1@.\s]{1,255})$/
+
+    const [open, setOpen] = useState(false);
 
     const ColorButton = styled(Button)(({ theme }) => ({
         color: theme.palette.getContrastText(purple[500]),
@@ -72,6 +74,25 @@ const ContactForm = (props) => {
                         <NetlifyFormProvider {...netlify}>
                             <NetlifyFormComponent onSubmit={handleSubmit(onSubmit)}>
                                 <Honeypot />
+                                {netlify.success && <Collapse in={open}>
+                                    <Alert
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setOpen(false);
+                                                }}
+                                            >
+                                                <CloseIcon fontSize="inherit" />
+                                            </IconButton>
+                                        }
+                                        sx={{ mb: 2 }}
+                                    >
+                                        Thank you for contacting me. I will respond soon!
+                                    </Alert>
+                                </Collapse>}
                                 <Box sx={{ m: 5, display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-around' }}>
 
                                     <Controller
