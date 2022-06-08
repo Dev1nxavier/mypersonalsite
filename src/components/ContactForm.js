@@ -3,20 +3,25 @@ import { Button, TextField, Typography, Grid, Box, Container } from '@mui/materi
 import { useForm, Controller } from 'react-hook-form';
 import { StaticImage } from 'gatsby-plugin-image';
 import * as styles from '../styles/layout.module.css'
-import {styled} from '@mui/material/styles'
-import {purple} from '@mui/material/colors';
+import { styled } from '@mui/material/styles'
+import { purple } from '@mui/material/colors';
+import { Honeypot, NetlifyFormProvider, NetlifyFormComponent, useNetlifyForm } from 'react-netlify-forms';
+import { Pattern } from '@mui/icons-material';
+import { color, fontSize } from '@mui/system';
 
 const ContactForm = (props) => {
+
+    const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i
 
     const ColorButton = styled(Button)(({ theme }) => ({
         color: theme.palette.getContrastText(purple[500]),
         backgroundColor: "#444444",
         "&:hover": {
-          backgroundColor: purple[700],
+            backgroundColor: purple[700],
         },
-      }));
+    }));
 
-    const { control, handleSubmit, setValue, reset } = useForm({
+    const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
         defaultValues: {
             fullName: '',
             emailAddress: '',
@@ -25,8 +30,20 @@ const ContactForm = (props) => {
         }
     })
 
+    const netlify = useNetlifyForm({
+        name: 'react-hook-form',
+        action: '/thanks',
+        honeypotName: 'bot-field',
+        onSuccess: (response, context) => {
+            console.log('Successfully sent form data to Netlify Server', response)
+        }
+    })
+
+
+
     const onSubmit = (data) => {
         console.log("You submitted the form:", data)
+        netlify.handleSubmit(null, data);
         reset();
     }
 
@@ -50,51 +67,85 @@ const ContactForm = (props) => {
                             Get in touch
                         </Typography>
                     </Grid>
-                    <Grid item container direction='column' rowSpacing={3} sx={{flexGrow: 1}} >
-                            <Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate autoComplete='off' sx={{ m:5, display: 'flex', flexDirection: 'column', flexGrow:1, justifyContent:'space-around' }}>
-                                <Controller
-                                    name="fullName"
-                                    control={control}
-                                    render={({ field }) => <TextField
-                                        {...field}
-                                        sx={{ bgcolor: '#D9D9D9' }}
-                                        id="first-name"
-                                        label="Your name"
-                                        variant='filled'
-                                    />}
-                                />
-                                <Controller
-                                    name="emailAddress"
-                                    control={control}
-                                    render={({ field }) => <TextField
-                                        {...field}
-                                        sx={{ bgcolor: '#D9D9D9' }}
-                                        id="email"
-                                        label="Your email"
-                                        variant='filled'
-                                    />}
-                                />
-                                <Controller
-                                    name="messageBody"
-                                    control={control}
-                                    render={({ field }) => <TextField
-                                        {...field}
-                                        sx={{ bgcolor: '#D9D9D9' }}
-                                        id="message"
-                                        label="Message"
-                                        variant='filled'
-                                        multiline
-                                        rows={5}
-                                    />}
-                                />
-                                <ColorButton
-                                    sx={{maxWidth: 200, alignSelf:'center'}}
-                                    type='submit'
-                                    variant='outlined'
-                                   >
-                                    Submit
-                                </ColorButton>
-                            </Box>
+                    <Grid item container direction='column' rowSpacing={3} sx={{ flexGrow: 1 }} >
+                        <NetlifyFormProvider {...netlify}>
+                            <NetlifyFormComponent onSubmit={handleSubmit(onSubmit)}>
+                                <Honeypot />
+                                <Box sx={{ m: 5, display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-around' }}>
+
+                                    <Controller
+                                        name="fullName"
+                                        control={control}
+                                        rules={{
+                                            // pattern: {
+                                            //     value: /^a...s$/,
+                                            //     message: "Please include your full name"
+                                            // }
+                                        }}
+                                        render={({ field }) => <TextField
+                                            {...field}
+                                            sx={{ bgcolor: '#D9D9D9' }}
+                                            id="first-name"
+                                            label="Your name"
+                                            variant='filled'
+                                        />}
+                                    />
+                                    {errors?.fullName && <Typography variant='subtitle2' sx={{ color: 'red' }}>{errors.fullName.message}</Typography>}
+                                    <Controller
+                                        name="emailAddress"
+                                        control={control}
+                                        rules={{
+                                            pattern: {
+                                                value: EMAIL_REGEX,
+                                                message: 'Invalid email address'
+                                            }
+                                        }
+                                        }
+                                        render={({ field }) => <TextField
+                                            {...field}
+                                            sx={{ bgcolor: '#D9D9D9', marginTop: 5 }}
+                                            id="email"
+                                            label="Your email"
+                                            variant='filled'
+                                        />}
+                                    />
+                                    {errors?.emailAddress && <Typography variant='subtitle2' sx={{ color: 'red' }}>{errors.emailAddress.message}</Typography>}
+                                    <Controller
+                                        name="messageBody"
+                                        control={control}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "Please send me a brief message"
+                                            },
+                                            // pattern: {
+                                            //     value: /^a...s$/,
+                                            //     message: "Please input valid text"
+                                            // }
+                                        }}
+                                        render={({ field }) => <TextField
+                                            {...field}
+                                            sx={{ bgcolor: '#D9D9D9', marginTop: 5 }}
+                                            id="message"
+                                            label="Message"
+                                            variant='filled'
+                                            multiline
+                                            rows={5}
+                                        />}
+                                    />
+                                    {errors?.messageBody && <Typography variant='subtitle2' sx={{ color: 'red' }}>{errors.messageBody.message}</Typography>}
+                                    <ColorButton
+                                        sx={{ maxWidth: 200, alignSelf: 'center' }}
+                                        type='submit'
+                                        variant='outlined'
+                                    >
+                                        Submit
+                                    </ColorButton>
+                                </Box>
+                            </NetlifyFormComponent>
+                        </NetlifyFormProvider>
+
+
                     </Grid>
                 </Grid>
                 <Grid container item xs={12} md={6} direction='column'>
@@ -108,7 +159,7 @@ const ContactForm = (props) => {
                     </a>
                 </Grid>
             </Grid>
-        </Box>
+        </Box >
     )
 }
 
