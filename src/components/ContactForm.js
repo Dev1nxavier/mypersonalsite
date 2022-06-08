@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Typography, Grid, Box, Container } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { StaticImage } from 'gatsby-plugin-image';
@@ -12,6 +12,7 @@ import { color, fontSize } from '@mui/system';
 const ContactForm = (props) => {
 
     const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i
+    const STRING_REGEX = /^([1-zA-Z0-1@.\s]{1,255})$/
 
     const ColorButton = styled(Button)(({ theme }) => ({
         color: theme.palette.getContrastText(purple[500]),
@@ -77,10 +78,11 @@ const ContactForm = (props) => {
                                         name="fullName"
                                         control={control}
                                         rules={{
-                                            // pattern: {
-                                            //     value: /^a...s$/,
-                                            //     message: "Please include your full name"
-                                            // }
+                                            required: "Please provide your name",
+                                            pattern: {
+                                                value: STRING_REGEX,
+                                                message: "Please include your full name"
+                                            }
                                         }}
                                         render={({ field }) => <TextField
                                             {...field}
@@ -95,6 +97,7 @@ const ContactForm = (props) => {
                                         name="emailAddress"
                                         control={control}
                                         rules={{
+                                            required: "Please provide your email",
                                             pattern: {
                                                 value: EMAIL_REGEX,
                                                 message: 'Invalid email address'
@@ -103,7 +106,7 @@ const ContactForm = (props) => {
                                         }
                                         render={({ field }) => <TextField
                                             {...field}
-                                            sx={{ bgcolor: '#D9D9D9', marginTop: 5 }}
+                                            sx={{ bgcolor: '#D9D9D9', marginTop: 3 }}
                                             id="email"
                                             label="Your email"
                                             variant='filled'
@@ -118,14 +121,14 @@ const ContactForm = (props) => {
                                                 value: true,
                                                 message: "Please send me a brief message"
                                             },
-                                            // pattern: {
-                                            //     value: /^a...s$/,
-                                            //     message: "Please input valid text"
-                                            // }
+                                            pattern: {
+                                                value: STRING_REGEX,
+                                                message: "Please input valid text"
+                                            }
                                         }}
                                         render={({ field }) => <TextField
                                             {...field}
-                                            sx={{ bgcolor: '#D9D9D9', marginTop: 5 }}
+                                            sx={{ bgcolor: '#D9D9D9', marginTop: 3 }}
                                             id="message"
                                             label="Message"
                                             variant='filled'
@@ -135,7 +138,7 @@ const ContactForm = (props) => {
                                     />
                                     {errors?.messageBody && <Typography variant='subtitle2' sx={{ color: 'red' }}>{errors.messageBody.message}</Typography>}
                                     <ColorButton
-                                        sx={{ maxWidth: 200, alignSelf: 'center' }}
+                                        sx={{ maxWidth: 200, alignSelf: 'center', marginTop: 3 }}
                                         type='submit'
                                         variant='outlined'
                                     >
