@@ -15,7 +15,15 @@
     margin: 3rem 0;
 }
 
-.bodyText{
+.body-text{
     color: gray;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Roboto', serif;
+}
+
+.layout-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

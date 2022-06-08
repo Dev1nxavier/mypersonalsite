@@ -3,18 +3,15 @@ import { graphql, Link } from "gatsby";
 import Layout from "../../components/Layout";
 import {
   Card,
-  CardContent,
   Typography,
   CardHeader,
   CardMedia,
-  CardActions,
-  Button,
   Grid,
   CardActionArea,
 } from "@mui/material";
-import { BackButton } from "../../components/BackButton";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
+import MyAppBar from "../../components/Appbar";
 
 const BlogPage = ({ data: allPosts }) => {
 
@@ -26,7 +23,7 @@ const BlogPage = ({ data: allPosts }) => {
   console.log(data);
   return (
     <Layout>
-      <BackButton component={Link} to="/"/>
+      <MyAppBar currentPage = "Articles" />
       <Grid container direction={"row"} spacing={3} >
         {allPosts.allMdx.nodes.map((post) => {
           const image = getImage(post.frontmatter.hero_image);

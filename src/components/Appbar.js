@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 import { useScrollTrigger } from "@mui/material";
-import { navigate } from "gatsby";
+
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
@@ -29,20 +29,23 @@ function ScrollOnTrigger(props) {
   return React.cloneElement(children, {
     elevation: trigger ? 4 : 0,
     style: {
-      backgroundColor: trigger ? "#D9D9D9" : "transparent",
+      backgroundColor: trigger ? "#fff" : "transparent",
       opacity: trigger? 1 : 0.9,
     },
   });
 }
 
 export default function MyAppBar(props) {
-  const { homePage, ...others } = props;
+  const { currentPage, ...others } = props;
+
+
 
   const pages = [
+    // { name: "Home", page: "/index" },
+    { name: "Home", page: "/"},
     { name: "About", page: "/about" },
     { name: "Portfolio", page: "/portfolio" },
     { name: "Articles", page: "/blog" },
-    { name: "CV", page: "/resume" },
     { name: "Contact", page: "/contact" },
   ];
 
@@ -73,22 +76,6 @@ export default function MyAppBar(props) {
             </Box>
           </Box>
           <Box sx={{ display: "flex", justifyContent: "space-around", mx: 10 }}>
-            <Link
-              noWrap
-              key={"home"}
-              variant="body2"
-              href={`/`}
-              sx={{
-                color: "#b69351",
-                px: 3,
-                flexShrink: 0,
-                textDecoration: "none",
-                fontFamily: "Merienda",
-                fontSize: "1.2em",
-              }}
-            >
-              Home
-            </Link>
             {pages.map((page, index) => (
               <Link
                 noWrap
@@ -97,7 +84,7 @@ export default function MyAppBar(props) {
                 href={`${page.page}`}
                 sx={{
                   px: 3,
-                  color: "#fff",
+                  color: page.name === currentPage ? "#b69351" : '#000000',
                   flexShrink: 0,
                   textDecoration: "none",
                   fontFamily: "Merienda",
@@ -106,7 +93,7 @@ export default function MyAppBar(props) {
               >
                 {page.name}
               </Link>
-            ))}
+            ))} 
             <ColorButton
               variant="contained"
               onClick={(e) => {
