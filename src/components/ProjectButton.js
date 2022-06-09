@@ -31,11 +31,13 @@ const images = [
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
     position: 'relative',
-    minHeight: 100,
+    height: 300,
+    width: 300,
+    
     borderRadius:'50%',
     [theme.breakpoints.down('sm')]: {
-        width: '100% !important', // Overrides inline-style
-        height: '100% !important',
+        width:  '100px !important', // Overrides inline-style
+        height: '100px !important',
     },
     '&:hover, &.Mui-focusVisible': {
         zIndex: 1,
@@ -133,7 +135,7 @@ const ProjectButton = () => {
     }
 
     return (
-        <Box width={{xs:'100%', md: '100%' }} display='flex' sx={{ justifyContent: 'space-evenly' }}>
+        <Box maxWidth='md' width={{xs:'100%',}} sx={{display:'flex', justifyContent: 'space-evenly'}}>
             {images.map((image) => (
                 <ImageButton
                     name={image.title}
@@ -141,9 +143,7 @@ const ProjectButton = () => {
                     key={image.title}
                     onClick={handleClick}
                     style={{
-                        width: 300,
-                        height: 300,
-
+                        margin:3
                     }}
 
                 >
