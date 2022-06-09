@@ -24,7 +24,7 @@ const BlogPage = ({ data: allPosts }) => {
   return (
     <Layout>
       <MyAppBar currentPage = "Articles" />
-      <Grid container direction={"row"} spacing={3} >
+      <Grid container direction={"row"} spacing={3} sx={{justifyContent: 'center'}} >
         {allPosts.allMdx.nodes.map((post) => {
           const image = getImage(post.frontmatter.hero_image);
           return (

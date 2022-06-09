@@ -19,13 +19,18 @@ const SectionItem = ({ post, index }) => {
             key={post.id}
             className={styles.layoutBox}
             sx={{
-                bgcolor: `${layoutColors[layout]}`
+                bgcolor: `${layoutColors[layout]}`,
             }}
         >
             <Typography className={styles.bodyText} variant="h5" sx={{ paddingTop: 5 }}>
                 {post.frontmatter.header}
             </Typography>
-            <Typography variant="h1" sx={{ fontFamily: "Robot Slab, serif", my: 3 }}>
+            <Typography 
+                variant="h1"
+                sx={{ 
+                    fontFamily: "Robot Slab, serif", 
+                    my: 3,
+                    textAlign:'center' }}>
                 {post.frontmatter.title}
             </Typography>
             <Grid container direction="row" spacing={5}>

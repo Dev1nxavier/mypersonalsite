@@ -31,7 +31,7 @@ const images = [
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
     position: 'relative',
-    minHeight: 200,
+    minHeight: 100,
     borderRadius:'50%',
     [theme.breakpoints.down('sm')]: {
         width: '100% !important', // Overrides inline-style
@@ -106,7 +106,6 @@ const TextBackdrop = styled('div')(({ theme }) => ({
     top: 0,
     bottom: 0,
     backgroundColor: theme.palette.common.black,
-    // visibility: 'hidden',
     transition: theme.transitions.create('bottom')
 }));
 
@@ -134,7 +133,7 @@ const ProjectButton = () => {
     }
 
     return (
-        <Box width={{ md: '100%' }} display='flex' sx={{ justifyContent: 'space-evenly' }}>
+        <Box width={{xs:'100%', md: '100%' }} display='flex' sx={{ justifyContent: 'space-evenly' }}>
             {images.map((image) => (
                 <ImageButton
                     name={image.title}

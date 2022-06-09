@@ -7,7 +7,8 @@ import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
-import { useScrollTrigger } from "@mui/material";
+import { useScrollTrigger, Container, IconButton, Menu, MenuItem } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu'
 
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -17,6 +18,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: purple[700],
   },
 }));
+
 
 function ScrollOnTrigger(props) {
   const { children } = props;
@@ -30,7 +32,7 @@ function ScrollOnTrigger(props) {
     elevation: trigger ? 4 : 0,
     style: {
       backgroundColor: trigger ? "#fff" : "transparent",
-      opacity: trigger? 1 : 0.9,
+      opacity: trigger ? 1 : 0.9,
     },
   });
 }
@@ -38,11 +40,20 @@ function ScrollOnTrigger(props) {
 export default function MyAppBar(props) {
   const { currentPage, ...others } = props;
 
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
 
 
   const pages = [
     // { name: "Home", page: "/index" },
-    { name: "Home", page: "/"},
+    { name: "Home", page: "/" },
     { name: "About", page: "/about" },
     { name: "Portfolio", page: "/portfolio" },
     { name: "Articles", page: "/blog" },
@@ -51,16 +62,14 @@ export default function MyAppBar(props) {
 
   return (
     <ScrollOnTrigger {...props}>
-      <AppBar position="sticky">
-        <Toolbar
-          component="nav"
-          variant="dense"
-          sx={{ py: 1, display: "flex", justifyContent: "space-between" }}
-        >
-          <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "row" }}>
-            <Box
-              sx={{ display: "flex", justifyContent: "center", marginRight: 5 }}
-            >
+      <AppBar position="sticky" sx={{ flex: 1 }}>
+        <Container maxWidth="xl">
+          <Toolbar
+            component="nav"
+            variant="dense"
+            sx={{ py: 1, display: "flex", justifyContent: "space-between" }}
+          >
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: "flex" }, flexDirection: "row" }}>
               <Typography
                 variant="span"
                 sx={{ color: "#b69351", fontWeight: "bolder", fontSize: "2em" }}
@@ -74,29 +83,94 @@ export default function MyAppBar(props) {
                 greene
               </Typography>
             </Box>
-          </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-around", mx: 10 }}>
-            {pages.map((page, index) => (
-              <Link
-                noWrap
-                key={page.name}
-                variant="body2"
-                href={`${page.page}`}
+            <Box sx={{ flexGrow: 1, justifyContent: "space-around", display: { xs: 'none', md: 'flex' }, mx: 10 }}>
+              {pages.map((page, index) => (
+                <Link
+                  noWrap
+                  key={page.name}
+                  variant="body2"
+                  href={`${page.page}`}
+                  sx={{
+                    px: 3,
+                    color: page.name === currentPage ? "#b69351" : '#000000',
+                    // flexShrink: 0,
+                    textDecoration: "none",
+                    fontFamily: "Merienda",
+                    fontSize: "1.2em",
+                  }}
+                >
+                  {page.name}
+                </Link>
+              ))}
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
                 sx={{
-                  px: 3,
-                  color: page.name === currentPage ? "#b69351" : '#000000',
-                  flexShrink: 0,
-                  textDecoration: "none",
-                  fontFamily: "Merienda",
-                  fontSize: "1.2em",
+                  display: { xs: 'block', md: 'none' },
                 }}
               >
-                {page.name}
-              </Link>
-            ))} 
-          </Box>
-          <Box sx={{}}></Box>
-        </Toolbar>
+                {pages.map((page) => (
+                  <MenuItem key={page.name} sx={{ textDecoration: 'none' }} onClick={handleCloseNavMenu}>
+                    <Link
+                      noWrap
+                      key={page.name}
+                      variant="body2"
+                      href={`${page.page}`}
+                      sx={{
+                        px: 3,
+                        color: page.name === currentPage ? "#b69351" : '#000000',
+                        flexShrink: 0,
+                        textDecoration: "none",
+                        fontFamily: "Merienda",
+                        fontSize: "1.2em",
+
+                      }}
+                    >
+                      {page.name}
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: "none" }, flexDirection: "row" }}>
+              <Typography
+                variant="span"
+                sx={{ color: "#b69351", fontWeight: "bolder", fontSize: "2em" }}
+              >
+                S
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ position: "relevant", left: -10, color: "green" }}
+              >
+                greene
+              </Typography>
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
     </ScrollOnTrigger>
   );

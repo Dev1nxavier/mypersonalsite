@@ -15,6 +15,7 @@ import seaStar from "../images/sea_start.jpeg";
 import * as styles from '../styles/layout.module.css';
 import ProjectButton from "../components/ProjectButton";
 import Hero from "../components/MyHero";
+import ResponsiveAppBar from "../components/ResponsiveAppbar";
 
 const portfolioArray = [
   seaTurtle,
@@ -40,7 +41,7 @@ const IndexPage = ({ data }) => {
         <Typography className={styles.bodyText} variant="h5" sx={{ paddingTop: 5 }}>
           projects
         </Typography>
-        <Typography variant="h1" sx={{ fontFamily: "Robot Slab, serif", my: 3 }}>
+        <Typography variant="h1" sx={{ fontFamily: "Robot Slab, serif", my: 3, textAlign: 'center' }}>
           A selection of works
         </Typography>
         <Box display='flex' justifyContent='center' width="100%">

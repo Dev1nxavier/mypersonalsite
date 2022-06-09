@@ -74,25 +74,10 @@ const ContactForm = (props) => {
                         <NetlifyFormProvider {...netlify}>
                             <NetlifyFormComponent onSubmit={handleSubmit(onSubmit)}>
                                 <Honeypot />
-                                {netlify.success && <Collapse in={open}>
-                                    <Alert
-                                        action={
-                                            <IconButton
-                                                aria-label="close"
-                                                color="inherit"
-                                                size="small"
-                                                onClick={() => {
-                                                    setOpen(false);
-                                                }}
-                                            >
-                                                <CloseIcon fontSize="inherit" />
-                                            </IconButton>
-                                        }
-                                        sx={{ mb: 2 }}
-                                    >
-                                        Thank you for contacting me. I will respond soon!
-                                    </Alert>
-                                </Collapse>}
+                                {netlify.success && (
+                                    <p sx={{ variant: 'alerts.success', p: 3 }}>
+                                        Thanks for contacting me!
+                                    </p>)}
                                 <Box sx={{ m: 5, display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-around' }}>
 
                                     <Controller
