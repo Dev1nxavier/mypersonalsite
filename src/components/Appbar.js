@@ -93,8 +93,8 @@ export default function MyAppBar(props) {
                   sx={{
                     px: 3,
                     color: page.name === currentPage ? "#b69351" : '#000000',
-                    // flexShrink: 0,
-                    textDecoration: "none",
+                    
+                    textDecoration: page.name===currentPage? "underline":"none",
                     fontFamily: "Merienda",
                     fontSize: "1.2em",
                   }}
