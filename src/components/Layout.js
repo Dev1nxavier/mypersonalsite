@@ -5,6 +5,7 @@ import {
     responsiveFontSizes,
     ThemeProvider,
 } from '@mui/material/styles';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 let theme = createTheme();
 
@@ -25,12 +26,12 @@ export default function Layout({ pageTitle, children }) {
 
     return (
         <ThemeProvider theme={theme}>
+            <ParallaxProvider>
             <React.Fragment>
                 <title>{pageTitle} | {data.site.siteMetadata.title}</title>
-
                 {children}
-
             </React.Fragment>
+            </ParallaxProvider>
         </ThemeProvider>
     )
 }

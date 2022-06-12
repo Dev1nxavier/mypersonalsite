@@ -15,7 +15,8 @@ import seaStar from "../images/sea_start.jpeg";
 import * as styles from '../styles/layout.module.css';
 import ProjectButton from "../components/ProjectButton";
 import Hero from "../components/MyHero";
-import ResponsiveAppBar from "../components/ResponsiveAppbar";
+import { Parallax } from 'react-scroll-parallax';
+
 
 const portfolioArray = [
   seaTurtle,
@@ -35,23 +36,21 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout pageTitle="Home Page">
-      <MyAppBar currentPage="Home"/>
-      <Hero/>
-      <Box className={styles.layoutBox} sx={{marginBottom:5}}>
+      <MyAppBar currentPage="Home" />
+      <Hero />
+      <Box className={styles.layoutBox} sx={{ marginBottom: 5 }}>
         <Typography className={styles.bodyText} variant="h5" sx={{ paddingTop: 5 }}>
-          projects
+          Projects
         </Typography>
         <Typography variant="h1" sx={{ fontFamily: "Robot Slab, serif", my: 3, textAlign: 'center' }}>
           A selection of works
         </Typography>
-        <Box display='flex' justifyContent='center' width="100%">
-          <ProjectButton/>
-        </Box>
+          <Box display='flex' justifyContent='center' width="100%"  data-sal = "slide-left"
+                data-sal-easing = "ease-in-out">
+            <ProjectButton />
+          </Box>
       </Box>
-      <Sections allPosts={data.allMdx.nodes} />
-
-
-
+        <Sections allPosts={data.allMdx.nodes} />
       <ContactMe />
     </Layout>
   );

@@ -3,7 +3,13 @@ import { StaticImage } from "gatsby-plugin-image"
 
 export default function Hero() {
   return (
-    <div style={{ display: "grid" }}>
+    <div
+      style={{ display: "grid" }}
+      data-sal="slide-right"
+      data-sal-duration = "500"
+      data-sal-easing="ease"
+      data-sal-delay="100">
+      
       {/* You can use a GatsbyImage component if the image is dynamic */}
       <StaticImage
         style={{
@@ -12,7 +18,7 @@ export default function Hero() {
           maxHeight: 600,
         }}
         layout="fullWidth"
-        
+
         // You can optionally force an aspect ratio for the generated image
         // aspectRatio={3 / 1}
         // This is a presentational image, so the alt should be an empty string

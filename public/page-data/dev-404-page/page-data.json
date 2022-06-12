@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---cache-dev-404-page-js",
     "path": "/dev-404-page/",
-    "result": {"data":{"allSiteFunction":{"nodes":[{"functionRoute":"googleAccessToken"},{"functionRoute":"login"},{"functionRoute":"logout"}]},"allSitePage":{"nodes":[{"path":"/404/"},{"path":"/404.html"},{"path":"/about/"},{"path":"/contact/"},{"path":"/"},{"path":"/login/"},{"path":"/logout/"},{"path":"/portfolio/"},{"path":"/blog/"},{"path":"/blog/mdx-webpage/"},{"path":"/blog/howtoquery/"},{"path":"/blog/google-authenticate/"},{"path":"/blog/gatsby-api/"},{"path":"/blog/skills/"},{"path":"/blog/about-me/"},{"path":"/blog/education/"},{"path":"/blog/mdx-page/"}]}},"pageContext":{}},
+    "result": {"data":{"allSiteFunction":{"nodes":[{"functionRoute":"googleAccessToken"},{"functionRoute":"login"},{"functionRoute":"logout"}]},"allSitePage":{"nodes":[{"path":"/404/"},{"path":"/404.html"},{"path":"/about/"},{"path":"/contact/"},{"path":"/"},{"path":"/login/"},{"path":"/logout/"},{"path":"/portfolio/"},{"path":"/blog/"},{"path":"/blog/mdx-webpage/"},{"path":"/blog/howtoquery/"},{"path":"/blog/google-authenticate/"},{"path":"/blog/gatsby-api/"},{"path":"/blog/about-me/"},{"path":"/blog/skills/"},{"path":"/blog/education/"},{"path":"/blog/mdx-page/"}]}},"pageContext":{}},
     "staticQueryHashes": []}
