@@ -32,6 +32,7 @@
     "gatsby-plugin-netlify-cms": "^6.13.0",
     "gatsby-plugin-scroll-reveal": "^0.0.7",
     "gatsby-plugin-sharp": "^4.13.0",
+    "gatsby-remark-embed-video": "^3.1.1",
     "gatsby-remark-highlight-code": "^3.2.0",
     "gatsby-source-filesystem": "^4.13.0",
     "gatsby-transformer-remark": "^5.13.0",

@@ -12,8 +12,6 @@ const BlogPost = ({ data }) => {
   //retrieve hero image
   const image = getImage(data.mdx.frontmatter.hero_image);
 
-  console.log("image:", image);
-
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
       

@@ -13,11 +13,11 @@ export default function Hero() {
       {/* You can use a GatsbyImage component if the image is dynamic */}
       <StaticImage
         style={{
-          gridArea: "1/1",
+          gridArea: "2/1",
           // You can set a maximum height for the image, if you wish.
-          maxHeight: 600,
+          // maxHeight: 600,
         }}
-        layout="fullWidth"
+        layout="constrained"
 
         // You can optionally force an aspect ratio for the generated image
         // aspectRatio={3 / 1}
@@ -25,7 +25,7 @@ export default function Hero() {
         alt=""
         // Assisi, Perúgia, Itália by Bernardo Ferrari, via Unsplash
         src={
-          "../images/hero_05.png"
+          "../images/3.png"
         }
         formats={["auto", "webp", "avif"]}
       />

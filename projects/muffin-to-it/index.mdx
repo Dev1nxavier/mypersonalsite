@@ -1,0 +1,62 @@
+---
+title: "MuffinToIt!"
+subheader: "A mobile eCommerce application using JAMSTACK (headless CMS, Markdown) in React-Native"
+date: "2022-06-16"
+hero_image: './muffintoit_logo.png'
+hero_image_credit_text: 'https://github.com/Dev1nxavier/muffintoit-mobile.git'
+alt: "iPhone Screenshot"
+hero_vid: 'https://www.youtube.com/embed/bRhzW2b8q4w'
+---
+
+import Video from '../../src/components/Video.js';
+
+# Description
+A fully-functional eCommerce mobile application built with React-Native and deployed on iOS and Android. The app was designed using the JAMSTACK principals. Data is served up through a headless CMS. For an extra layer of security, the app hits endpoints on an Express server that makes calls to a Firebase real-time database for user registration and authentication.  
+
+## Overall App Design ##   
+The app is designed to use a headless CMS as the primary source-of truth. There is a small performance concession due to server calls on changes. For example, when a user adds a new item, a call is made to the /addToCart endpoint and the response is dispatched to the CartState. This ensures that there is no disconnect between the session State and the CMS. 
+
+
+[Checkout the repository here](https://github.com/Dev1nxavier/muffintoit-mobile)   
+
+
+# Technology #   
+* React-Native
+* Redux & Redux Toolkit   
+* Expo   
+* React   
+* NodeJS   
+* Express   
+* Google Firebase   
+
+# How I did it   
+
+## App Navigation ##   
+The mobile app uses react-navigation to setup a stack navigator and a bottom-tab navigator. The tab-navigator is a child of the stack navigator, ensuring that the tabs are only available to certain screens and preventing unintented workflow breakages.   
+<Video videoSrcURL={'https://www.youtube.com/embed/NtXx92fo27Q'} videoTitle="App Navigation"/>
+
+## User Authentication ##   
+A Google Firebase real-time database was used for user account creation, association with the order history, and user authentication. Through Firebase a user logs in with an email and password and Google exchanges this for an access token. If the user is logged in, a completed order is automatically saved to the user's database profile on successful checkout. In the order history tab, a user can access all prior orders completed for wich that user was logged in prior to checkout. 
+
+<Video videoSrcURL='https://www.youtube.com/embed/XmN4_iowuo8' videoTitle="App User Authentication"/>
+
+## Checkout UX ##   
+Stripe was used as the primary payment gateway. A payment intent is initiated when the user accesses the REVIEW screen. This intent takes the user's customer ID and cart total (including tax and shipping) and returns an ephemeral key, customer ID, checkout ID for use in payment processing. 
+
+When the user clicks the Submit Payment button, a Stripe UI is presented for the user to input credit card details.
+
+<Video videoSrcURL='https://youtube.com/embed/GFJI0Jq_fIs' videoTitle='App checkout UX'/>
+
+The app includes a URL redirect to allow any payment processing requiring the user to visit their bank's website to be redirected back to the app on success. Once the user clicks Submit the UI is cleared and the user is redirected to the Thank You screen.
+
+## State Management ##
+State management is handled through Redux and Redux toolkit. Several slices are used to manage items in the cart (CartState), user profile information (UserState), and products downloaded from the CMS (productsState). 
+
+## Opportunies ##   
+* In the Review screen, after a successful payment, a callback is initiated that updates the app state and redirects the user to the Thank You screen. If the user exits the Review screen before the callback, there may be an error. To better address this, future releases will use a webhook to listen for this event instead of a callback function.  
+
+* The app uses Firebase to store user information and authenticate users. The eCommerce CMS duplicates saving of orders but does not associate the order with the Firebase user ID. Future releases will fully leverage the eCommerce CMS to authenticate users with a JWT sent to their email. When a user clicks the link in their email, the JWT is exchanged for an access token. This requires a custom URL to redirect the user back into the app. Custom URLs are not available as of version 1 of this app from the eCommerce CMS. 
+
+
+  
+

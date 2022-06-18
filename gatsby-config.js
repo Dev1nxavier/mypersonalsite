@@ -25,6 +25,14 @@ module.exports = {
       },
     },
     {
+      resolve:"gatsby-source-filesystem",
+      options:{
+        name:"projects",
+        path: `${__dirname}/projects`,
+      },
+      __key: "projects",
+    },
+    {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
@@ -60,6 +68,6 @@ module.exports = {
         enterEventName: 'sal:in', // Enter event name
         exitEventName: 'sal:out', // Exit event name
       },
-    }
+    },
   ],
 };

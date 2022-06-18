@@ -4,8 +4,9 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import blue_tang from '../images/blue_tang.jpeg';
-import crab from '../images/crab.jpeg';
+import muffintoit_logo from '../images/muffintoit_logo.png';
 import clownFish from '../images/clown_fish.jpeg';
+import { Link } from 'gatsby';
 
 
 const images = [
@@ -16,8 +17,9 @@ const images = [
         text: "Demonstration of react-fetch and headless CMS"
     },
     {
-        url: crab,
+        url: muffintoit_logo,
         title: 'Muffin To It',
+        slug: 'muffin-to-it',
         width: '30%',
         text: "Fully-functional React-Native eCommerce app"
     },
@@ -41,15 +43,16 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
     },
     '&:hover, &.Mui-focusVisible': {
         zIndex: 1,
+        
         '& .MuiImageBackdrop-root': {
-            opacity: 0.15,
+            opacity: .80,
 
         },
         '& .MuiImageMarked-root': {
             opacity: 0,
         },
         '& .MuiTypography-root': {
-            // border: '4px solid currentColor',
+            border: '4px solid currentColor',
             visibility: 'hidden',
         },
         '& .MuiTextBackdrop-root': {
@@ -108,12 +111,14 @@ const TextBackdrop = styled('div')(({ theme }) => ({
     top: 0,
     bottom: 0,
     backgroundColor: theme.palette.common.black,
-    transition: theme.transitions.create('bottom')
+    transition: theme.transitions.create('bottom'),
+    '&hover:':{
+        color: 'red'
+    }
 }));
 
 const ImageTypography = styled(Typography)(({theme})=>({
-    visibility: 'hidden'
-
+    visibility: 'hidden',
 }))
 
 const ImageMarked = styled('span')(({ theme }) => ({
@@ -139,6 +144,7 @@ const ProjectButton = () => {
             {images.map((image) => (
                 <ImageButton
                     name={image.title}
+                    slug = {image.slug}
                     focusRipple
                     key={image.title}
                     onClick={handleClick}
@@ -147,6 +153,7 @@ const ProjectButton = () => {
                     }}
 
                 >
+                    <Link to={`/portfolio/${image.slug}`}>
                     <ImageSrc style={{ backgroundImage: `url(${image.url})` }}/>
                     <ImageBackdrop className="MuiImageBackdrop-root" />
                     <Image sx={{ borderRadius: "50%" }}>
@@ -183,6 +190,7 @@ const ProjectButton = () => {
                             </ImageTypography>
                         </TextBackdrop>
                     </Image>
+                    </Link>
                 </ImageButton>
             ))}
         </Box>
