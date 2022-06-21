@@ -10,12 +10,7 @@ import { Link } from 'gatsby';
 
 
 const images = [
-    {
-        url: blue_tang,
-        title: 'NewsApp',
-        width: '40%',
-        text: "Demonstration of react-fetch and headless CMS"
-    },
+
     {
         url: muffintoit_logo,
         title: 'Muffin To It',
@@ -23,12 +18,7 @@ const images = [
         width: '30%',
         text: "Fully-functional React-Native eCommerce app"
     },
-    {
-        url: clownFish,
-        title: 'Muffin To It - Web',
-        width: '30%',
-        text: 'eCommerce site written in NextJS.'
-    },
+    
 ];
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
