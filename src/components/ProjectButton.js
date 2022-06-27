@@ -18,7 +18,13 @@ const images = [
         width: '30%',
         text: "Fully-functional React-Native eCommerce app"
     },
-    
+    {
+        url: clownFish,
+        title: 'Bubble Launcher!',
+        slug: '',
+        width: '30%',
+        text: "Fun physics-based game written in Unity and C#"
+    },
 ];
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
