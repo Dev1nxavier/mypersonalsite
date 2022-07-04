@@ -52,7 +52,7 @@ The app includes a URL redirect to allow any payment processing requiring the us
 ## State Management ##
 State management is handled through Redux and Redux toolkit. Several slices are used to manage items in the cart (CartState), user profile information (UserState), and products downloaded from the CMS (productsState). 
 
-## Opportunies ##   
+## Opportunities ##   
 * In the Review screen, after a successful payment, a callback is initiated that updates the app state and redirects the user to the Thank You screen. If the user exits the Review screen before the callback, there may be an error. To better address this, future releases will use a webhook to listen for this event instead of a callback function.  
 
 * The app uses Firebase to store user information and authenticate users. The eCommerce CMS duplicates saving of orders but does not associate the order with the Firebase user ID. Future releases will fully leverage the eCommerce CMS to authenticate users with a JWT sent to their email. When a user clicks the link in their email, the JWT is exchanged for an access token. This requires a custom URL to redirect the user back into the app. Custom URLs are not available as of version 1 of this app from the eCommerce CMS. 

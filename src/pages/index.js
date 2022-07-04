@@ -15,7 +15,6 @@ import seaStar from "../images/sea_start.jpeg";
 import * as styles from '../styles/layout.module.css';
 import ProjectButton from "../components/ProjectButton";
 import Hero from "../components/MyHero";
-import { Parallax } from 'react-scroll-parallax';
 
 
 const portfolioArray = [
