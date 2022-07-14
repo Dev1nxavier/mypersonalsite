@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
-import blue_tang from '../images/blue_tang.jpeg';
+import singleCloud from '../images/singleCloud.jpeg';
 import muffintoit_logo from '../images/muffintoit_logo.png';
 import clownFish from '../images/clown_fish.jpeg';
 import { Link } from 'gatsby';
@@ -21,9 +21,16 @@ const images = [
     {
         url: clownFish,
         title: 'Bubble Launcher!',
-        slug: '',
+        slug: 'bubble-launcher',
         width: '30%',
         text: "Fun physics-based game written in Unity and C#"
+    },
+    {
+        url: singleCloud,
+        title: 'JobSearch Site',
+        slug: 'jobsearch-site',
+        width: '30%',
+        text: "React frontend with Firebase backend"
     },
 ];
 
